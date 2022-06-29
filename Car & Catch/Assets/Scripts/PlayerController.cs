@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 10.0f;
     public float gravityModifier = 1.5f;
 
+    private int points = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +34,26 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("Ground"))
         {
             isOnGround = true;
+        }
+
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            Debug.Log("Hit an enemy!");
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Collectible"))
+        {
+            points++;
+            Destroy(other.gameObject);
+            Debug.Log(points);
+        }
+
+        if (other.gameObject.CompareTag("Powerup"))
+        {
+            Destroy(other.gameObject);
         }
     }
 
